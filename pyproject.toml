@@ -1,20 +1,19 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.backends.legacy:build"
+requires = ["setuptools>=61,<74", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "phenopacket-fhir"
 version = "0.1.0"
 description = "Map GA4GH Phenopackets v2 to FHIR R4 Questionnaire / QuestionnaireResponse"
 readme = "README.md"
-license = { file = "LICENSE" }
+license = { text = "MIT" }
 requires-python = ">=3.9"
 keywords = ["phenopackets", "fhir", "ga4gh", "rare-disease", "interoperability", "hl7"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Healthcare Industry",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
