@@ -1,19 +1,31 @@
-# phenopackets_fhir
+# phenopacket-fhir
+
+[![PyPI version](https://img.shields.io/pypi/v/phenopacket-fhir.svg)](https://pypi.org/project/phenopacket-fhir/)
+[![Python versions](https://img.shields.io/pypi/pyversions/phenopacket-fhir.svg)](https://pypi.org/project/phenopacket-fhir/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Tests](https://github.com/schmitzdonatien/phenopacket-fhir/actions/workflows/tests.yml/badge.svg)](https://github.com/schmitzdonatien/phenopacket-fhir/actions)
+
+```bash
+pip install phenopacket-fhir
+```
 
 Maps **GA4GH Phenopackets v2** documents to **FHIR R4 Questionnaire / QuestionnaireResponse** resources.
 
 Covered Phenopacket elements: `Subject`, `PhenotypicFeature` (HPO), `Disease` (MONDO / OMIM / ICD).
+Zero runtime dependencies — stdlib only, Python ≥ 3.9.
 
 ---
 
-## Setup
-
-No external dependencies — standard library only.
+## Installation
 
 ```bash
-# Clone or copy the phenopackets_fhir/ folder next to your scripts, then:
-cd /path/to/Phenopackets
-python3 -c "from phenopackets_fhir import build_questionnaire; print('OK')"
+pip install phenopacket-fhir
+```
+
+Or for development (includes pytest):
+
+```bash
+pip install "phenopacket-fhir[dev]"
 ```
 
 ---
@@ -22,7 +34,7 @@ python3 -c "from phenopackets_fhir import build_questionnaire; print('OK')"
 
 ### 1. Generate the FHIR Questionnaire definition
 
-The Questionnaire is a static template — it describes the form structure (questions, types, answer options). Generate it once and store / publish it.
+The Questionnaire is a static template describing the form structure (questions, types, answer options). Generate it once and store or publish it.
 
 ```python
 import json
@@ -44,7 +56,7 @@ print(json.dumps(questionnaire, indent=2))
   "title": "GA4GH Phenopacket v2 — Clinical Phenotyping Form",
   "status": "active",
   "item": [
-    { "linkId": "phenopacket.id",  "text": "Phenopacket identifier", "type": "string", "required": true },
+    { "linkId": "phenopacket.id", "text": "Phenopacket identifier", "type": "string", "required": true },
     {
       "linkId": "subject",
       "text": "Subject (Individual)",
@@ -53,24 +65,11 @@ print(json.dumps(questionnaire, indent=2))
       "item": [
         { "linkId": "subject.id",            "text": "Patient / subject identifier", "type": "string" },
         { "linkId": "subject.date_of_birth", "text": "Date of birth",               "type": "date"   },
-        { "linkId": "subject.sex",           "text": "Biological sex",              "type": "choice" },
-        ...
+        { "linkId": "subject.sex",           "text": "Biological sex",              "type": "choice" }
       ]
     },
-    {
-      "linkId": "phenotypic_features",
-      "text": "Phenotypic Features",
-      "type": "group",
-      "repeats": true,
-      "item": [ ... ]
-    },
-    {
-      "linkId": "diseases",
-      "text": "Diseases",
-      "type": "group",
-      "repeats": true,
-      "item": [ ... ]
-    }
+    { "linkId": "phenotypic_features", "type": "group", "repeats": true, "item": [ ... ] },
+    { "linkId": "diseases",            "type": "group", "repeats": true, "item": [ ... ] }
   ]
 }
 ```
@@ -84,11 +83,22 @@ print(json.dumps(questionnaire, indent=2))
 import json
 from phenopackets_fhir import build_questionnaire, phenopacket_to_response
 
-# Load your phenopacket
-with open("phenopackets_fhir/example_phenopacket.json") as f:
-    phenopacket = json.load(f)
+phenopacket = {
+    "id": "my-phenopacket-01",
+    "subject": { "id": "patient-42", "sex": "FEMALE", "dateOfBirth": "1990-03-15" },
+    "phenotypicFeatures": [
+        {
+            "type": { "id": "HP:0001250", "label": "Seizure" },
+            "onset": { "ontologyClass": { "id": "HP:0003593", "label": "Infantile onset" } },
+            "severity": { "id": "HP:0012826", "label": "Moderate" }
+        }
+    ],
+    "diseases": [
+        { "term": { "id": "MONDO:0005027", "label": "Epilepsy" }, "excluded": False }
+    ],
+    "metaData": { "phenopacketSchemaVersion": "2.0", "createdBy": "dr.jones" }
+}
 
-# Build both resources
 questionnaire = build_questionnaire()
 response      = phenopacket_to_response(phenopacket, questionnaire)
 
@@ -96,43 +106,38 @@ print(json.dumps(response, indent=2))
 ```
 
 <details>
-<summary>Output snippet (Marfan syndrome example)</summary>
+<summary>Output snippet</summary>
 
 ```json
 {
   "resourceType": "QuestionnaireResponse",
-  "id": "phenopacket-marfan-001-response",
+  "id": "my-phenopacket-01-response",
   "questionnaire": "https://phenopackets.org/fhir/Questionnaire/phenopacket-v2|2.0",
   "status": "completed",
-  "subject": { "reference": "Patient/patient-001" },
+  "subject": { "reference": "Patient/patient-42" },
   "item": [
-    { "linkId": "phenopacket.id",          "answer": [{ "valueString": "phenopacket-marfan-001" }] },
-    { "linkId": "phenopacket.meta_created_by", "answer": [{ "valueString": "dr.smith@clinic.org" }] },
+    { "linkId": "phenopacket.id", "answer": [{ "valueString": "my-phenopacket-01" }] },
     {
       "linkId": "subject",
       "item": [
-        { "linkId": "subject.id",            "answer": [{ "valueString": "patient-001" }] },
-        { "linkId": "subject.date_of_birth", "answer": [{ "valueDate": "1985-07-14" }] },
-        { "linkId": "subject.sex",           "answer": [{ "valueCoding": { "code": "MALE" } }] },
-        { "linkId": "subject.taxonomy",      "answer": [{ "valueCoding": { "code": "NCBITaxon:9606", "display": "Homo sapiens" } }] }
+        { "linkId": "subject.id",            "answer": [{ "valueString": "patient-42" }] },
+        { "linkId": "subject.date_of_birth", "answer": [{ "valueDate": "1990-03-15" }] },
+        { "linkId": "subject.sex",           "answer": [{ "valueCoding": { "code": "FEMALE" } }] }
       ]
     },
     {
       "linkId": "phenotypic_features",
       "item": [
-        { "linkId": "phenotypic_feature.type",     "answer": [{ "valueCoding": { "code": "HP:0002751", "display": "Kyphoscoliosis" } }] },
-        { "linkId": "phenotypic_feature.excluded", "answer": [{ "valueBoolean": false }] },
-        { "linkId": "phenotypic_feature.onset_ontology", "answer": [{ "valueCoding": { "code": "HP:0011463", "display": "Childhood onset" } }] },
-        { "linkId": "phenotypic_feature.severity", "answer": [{ "valueCoding": { "code": "HP:0012826", "display": "Moderate" } }] }
+        { "linkId": "phenotypic_feature.type",           "answer": [{ "valueCoding": { "code": "HP:0001250", "display": "Seizure" } }] },
+        { "linkId": "phenotypic_feature.onset_ontology", "answer": [{ "valueCoding": { "code": "HP:0003593", "display": "Infantile onset" } }] },
+        { "linkId": "phenotypic_feature.severity",       "answer": [{ "valueCoding": { "code": "HP:0012826", "display": "Moderate" } }] }
       ]
     },
-    ...
     {
       "linkId": "diseases",
       "item": [
-        { "linkId": "disease.term",    "answer": [{ "valueCoding": { "code": "MONDO:0007947", "display": "Marfan syndrome" } }] },
-        { "linkId": "disease.excluded","answer": [{ "valueBoolean": false }] },
-        { "linkId": "disease.onset_ontology", "answer": [{ "valueCoding": { "code": "HP:0011463", "display": "Childhood onset" } }] }
+        { "linkId": "disease.term",     "answer": [{ "valueCoding": { "code": "MONDO:0005027", "display": "Epilepsy" } }] },
+        { "linkId": "disease.excluded", "answer": [{ "valueBoolean": false }] }
       ]
     }
   ]
@@ -142,27 +147,52 @@ print(json.dumps(response, indent=2))
 
 ---
 
+### 3. Load from a JSON file
+
+```python
+import json
+from phenopackets_fhir import build_questionnaire, phenopacket_to_response
+
+with open("my_phenopacket.json") as f:
+    phenopacket = json.load(f)
+
+response = phenopacket_to_response(phenopacket, build_questionnaire())
+
+with open("response.json", "w") as f:
+    json.dump(response, f, indent=2)
+```
+
+---
+
 ## Command-line interface
+
+After `pip install phenopacket-fhir` a `phenopacket-fhir` command is available:
 
 ```bash
 # Print the Questionnaire definition
-python3 -m phenopackets_fhir.cli questionnaire
+phenopacket-fhir questionnaire
 
 # Map a phenopacket file → QuestionnaireResponse
-python3 -m phenopackets_fhir.cli map phenopackets_fhir/example_phenopacket.json
+phenopacket-fhir map my_phenopacket.json
 
-# Emit both Questionnaire + QuestionnaireResponse in one JSON object
-python3 -m phenopackets_fhir.cli map phenopackets_fhir/example_phenopacket.json --with-questionnaire
+# Emit both Questionnaire + QuestionnaireResponse together
+phenopacket-fhir map my_phenopacket.json --with-questionnaire
 
-# Save output to a file
-python3 -m phenopackets_fhir.cli map phenopackets_fhir/example_phenopacket.json > response.json
+# Save to a file
+phenopacket-fhir map my_phenopacket.json > response.json
+```
+
+You can also invoke it as a module if you prefer:
+
+```bash
+python -m phenopackets_fhir.cli map my_phenopacket.json
 ```
 
 ---
 
 ## Phenopacket input format
 
-The mapper accepts **protobuf-JSON** (the standard wire format). Field names are `camelCase` as produced by `MessageToJson()` or any GA4GH Phenopacket SDK.
+The mapper accepts **protobuf-JSON** (the standard Phenopacket wire format). Field names are `camelCase` as produced by `MessageToJson()` or any GA4GH Phenopacket SDK.
 
 ### Minimal valid input
 
@@ -180,22 +210,16 @@ The mapper accepts **protobuf-JSON** (the standard wire format). Field names are
 }
 ```
 
-### Onset variants
+### Supported onset variants
 
-All four Phenopacket `TimeElement` forms are supported:
+All five Phenopacket `TimeElement` forms are handled:
 
 ```json
-// Ontology class (HPO age of onset)
-"onset": { "ontologyClass": { "id": "HP:0003577", "label": "Congenital onset" } }
-
-// ISO 8601 age
-"onset": { "age": { "iso8601duration": "P2Y6M" } }
-
-// Calendar date
-"onset": { "timestamp": "2010-03-15T00:00:00Z" }
-
-// Age range (start is used)
-"onset": { "ageRange": { "start": { "iso8601duration": "P5Y" }, "end": { "iso8601duration": "P10Y" } } }
+{ "onset": { "ontologyClass":  { "id": "HP:0003577", "label": "Congenital onset" } } }
+{ "onset": { "age":            { "iso8601duration": "P2Y6M" } } }
+{ "onset": { "ageRange":       { "start": { "iso8601duration": "P5Y" }, "end": { "iso8601duration": "P10Y" } } } }
+{ "onset": { "timestamp":      "2010-03-15T00:00:00Z" } }
+{ "onset": { "gestationalAge": { "weeks": 32, "days": 3 } } }
 ```
 
 ---
@@ -234,16 +258,11 @@ All four Phenopacket `TimeElement` forms are supported:
 
 ---
 
-## File layout
+## Contributing
 
-```
-Phenopackets/
-├── phenopackets_fhir/
-│   ├── __init__.py          # Public API: build_questionnaire, phenopacket_to_response
-│   ├── questionnaire.py     # FHIR Questionnaire definition builder
-│   ├── mapper.py            # Phenopacket → QuestionnaireResponse mapper
-│   ├── cli.py               # Command-line interface
-│   └── example_phenopacket.json   # Marfan syndrome sample
-├── questionnaire.json       # Pre-built Questionnaire output
-└── questionnaire_response.json    # Pre-built response for the example
+```bash
+git clone https://github.com/schmitzdonatien/phenopacket-fhir.git
+cd phenopacket-fhir
+pip install -e ".[dev]"
+pytest
 ```
