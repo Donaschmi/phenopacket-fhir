@@ -14,7 +14,7 @@ Suggested description: *Map GA4GH Phenopackets v2 to FHIR R4 Questionnaire / Que
    - **Visibility:** Public
    - Leave "Add a README file", ".gitignore", and "license" **unchecked** (they are already in the project)
 3. Click **Create repository**
-4. Copy the remote URL shown (e.g. `https://github.com/schmitzdonatien/phenopacket-fhir.git`)
+4. Copy the remote URL shown (e.g. `https://github.com/Donaschmi/phenopacket-fhir.git`)
 
 ---
 
@@ -40,12 +40,12 @@ git commit -m "feat: initial release — Phenopackets v2 to FHIR Questionnaire/Q
 ## Step 4 — Push to GitHub
 
 ```bash
-git remote add origin https://github.com/schmitzdonatien/phenopacket-fhir.git
+git remote add origin https://github.com/Donaschmi/phenopacket-fhir.git
 git branch -M main
 git push -u origin main
 ```
 
-After this your code is live at `https://github.com/schmitzdonatien/phenopacket-fhir`.
+After this your code is live at `https://github.com/Donaschmi/phenopacket-fhir`.
 
 ---
 

@@ -3,7 +3,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/phenopacket-fhir.svg)](https://pypi.org/project/phenopacket-fhir/)
 [![Python versions](https://img.shields.io/pypi/pyversions/phenopacket-fhir.svg)](https://pypi.org/project/phenopacket-fhir/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://github.com/schmitzdonatien/phenopacket-fhir/actions/workflows/tests.yml/badge.svg)](https://github.com/schmitzdonatien/phenopacket-fhir/actions)
+[![Tests](https://github.com/Donaschmi/phenopacket-fhir/actions/workflows/tests.yml/badge.svg)](https://github.com/Donaschmi/phenopacket-fhir/actions)
 
 ```bash
 pip install phenopacket-fhir
@@ -261,7 +261,7 @@ All five Phenopacket `TimeElement` forms are handled:
 ## Contributing
 
 ```bash
-git clone https://github.com/schmitzdonatien/phenopacket-fhir.git
+git clone https://github.com/Donaschmi/phenopacket-fhir.git
 cd phenopacket-fhir
 pip install -e ".[dev]"
 pytest
