@@ -1,0 +1,507 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "phenopacket-v2",
+  "url": "https://phenopackets.org/fhir/Questionnaire/phenopacket-v2",
+  "version": "2.0",
+  "name": "PhenopacketV2",
+  "title": "GA4GH Phenopacket v2 \u2014 Clinical Phenotyping Form",
+  "status": "active",
+  "experimental": true,
+  "date": "2024-01-01",
+  "publisher": "GA4GH / Phenopackets",
+  "description": "FHIR Questionnaire representation of the GA4GH Phenopacket v2 schema, covering Subject (Individual), PhenotypicFeatures (HPO), and Diseases.",
+  "item": [
+    {
+      "linkId": "phenopacket.id",
+      "text": "Phenopacket identifier",
+      "type": "string",
+      "required": true
+    },
+    {
+      "linkId": "phenopacket.meta_created_by",
+      "text": "Created by",
+      "type": "string"
+    },
+    {
+      "linkId": "phenopacket.meta_created",
+      "text": "Created (ISO 8601)",
+      "type": "dateTime"
+    },
+    {
+      "linkId": "subject",
+      "text": "Subject (Individual)",
+      "type": "group",
+      "required": true,
+      "item": [
+        {
+          "linkId": "subject.id",
+          "text": "Patient / subject identifier",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "subject.date_of_birth",
+          "text": "Date of birth",
+          "type": "date"
+        },
+        {
+          "linkId": "subject.sex",
+          "text": "Biological sex",
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/sex",
+                "code": "UNKNOWN_SEX",
+                "display": "Unknown"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/sex",
+                "code": "FEMALE",
+                "display": "Female"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/sex",
+                "code": "MALE",
+                "display": "Male"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/sex",
+                "code": "OTHER_SEX",
+                "display": "Other"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "subject.karyotypic_sex",
+          "text": "Karyotypic sex",
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/karyotypic-sex",
+                "code": "UNKNOWN_KARYOTYPE",
+                "display": "Unknown karyotype"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/karyotypic-sex",
+                "code": "XX",
+                "display": "XX"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/karyotypic-sex",
+                "code": "XY",
+                "display": "XY"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/karyotypic-sex",
+                "code": "XO",
+                "display": "XO"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/karyotypic-sex",
+                "code": "XXY",
+                "display": "XXY"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/karyotypic-sex",
+                "code": "XXX",
+                "display": "XXX"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/karyotypic-sex",
+                "code": "XXYY",
+                "display": "XXYY"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/karyotypic-sex",
+                "code": "XXXY",
+                "display": "XXXY"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/karyotypic-sex",
+                "code": "XXXX",
+                "display": "XXXX"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/karyotypic-sex",
+                "code": "XYY",
+                "display": "XYY"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/karyotypic-sex",
+                "code": "OTHER_KARYOTYPE",
+                "display": "Other"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "subject.taxonomy",
+          "text": "Taxonomy (NCBITaxon)",
+          "type": "open-choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/ncbitaxon.owl",
+                "code": "NCBITaxon:9606",
+                "display": "Homo sapiens"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "subject.vital_status",
+          "text": "Vital status",
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/vital-status",
+                "code": "UNKNOWN_STATUS",
+                "display": "Unknown"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/vital-status",
+                "code": "ALIVE",
+                "display": "Alive"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/vital-status",
+                "code": "DECEASED",
+                "display": "Deceased"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "phenotypic_features",
+      "text": "Phenotypic Features",
+      "type": "group",
+      "repeats": true,
+      "item": [
+        {
+          "linkId": "phenotypic_feature.type",
+          "text": "HPO term (type)",
+          "type": "open-choice",
+          "required": true,
+          "answerValueSet": "http://purl.obolibrary.org/obo/hp.owl"
+        },
+        {
+          "linkId": "phenotypic_feature.excluded",
+          "text": "Excluded (negated observation)",
+          "type": "boolean"
+        },
+        {
+          "linkId": "phenotypic_feature.onset_ontology",
+          "text": "Onset (ontology class)",
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0003577",
+                "display": "Congenital onset"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0003623",
+                "display": "Neonatal onset"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0003593",
+                "display": "Infantile onset"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0011463",
+                "display": "Childhood onset"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0003621",
+                "display": "Juvenile onset"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0003581",
+                "display": "Adult onset"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0003596",
+                "display": "Middle age onset"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0003584",
+                "display": "Late onset"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "phenotypic_feature.onset_age",
+          "text": "Onset (ISO 8601 age, e.g. P2Y3M)",
+          "type": "string"
+        },
+        {
+          "linkId": "phenotypic_feature.onset_date",
+          "text": "Onset (date)",
+          "type": "date"
+        },
+        {
+          "linkId": "phenotypic_feature.severity",
+          "text": "Severity (HPO)",
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0012827",
+                "display": "Borderline"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0012825",
+                "display": "Mild"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0012826",
+                "display": "Moderate"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0012829",
+                "display": "Severe"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0012828",
+                "display": "Profound"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "phenotypic_feature.modifiers",
+          "text": "Clinical modifiers (HPO, multiple allowed)",
+          "type": "open-choice",
+          "repeats": true,
+          "answerValueSet": "http://purl.obolibrary.org/obo/hp.owl"
+        }
+      ]
+    },
+    {
+      "linkId": "diseases",
+      "text": "Diseases",
+      "type": "group",
+      "repeats": true,
+      "item": [
+        {
+          "linkId": "disease.term",
+          "text": "Disease term (MONDO / OMIM / ICD)",
+          "type": "open-choice",
+          "required": true,
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/mondo.owl",
+                "code": "MONDO:0000001",
+                "display": "disease or disorder (pick a specific term)"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://www.omim.org",
+                "code": "OMIM:000000",
+                "display": "OMIM entry (enter correct code)"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "disease.excluded",
+          "text": "Excluded (rule-out diagnosis)",
+          "type": "boolean"
+        },
+        {
+          "linkId": "disease.onset_ontology",
+          "text": "Onset (ontology class)",
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0003577",
+                "display": "Congenital onset"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0003623",
+                "display": "Neonatal onset"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0003593",
+                "display": "Infantile onset"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0011463",
+                "display": "Childhood onset"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0003621",
+                "display": "Juvenile onset"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0003581",
+                "display": "Adult onset"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0003596",
+                "display": "Middle age onset"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0003584",
+                "display": "Late onset"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "disease.onset_age",
+          "text": "Onset (ISO 8601 age)",
+          "type": "string"
+        },
+        {
+          "linkId": "disease.onset_date",
+          "text": "Onset (date)",
+          "type": "date"
+        },
+        {
+          "linkId": "disease.disease_stage",
+          "text": "Disease stage (e.g. TNM, cancer staging)",
+          "type": "open-choice",
+          "repeats": true
+        },
+        {
+          "linkId": "disease.primary_site",
+          "text": "Primary anatomical site",
+          "type": "open-choice"
+        },
+        {
+          "linkId": "disease.laterality",
+          "text": "Laterality",
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0012834",
+                "display": "Right"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0012835",
+                "display": "Left"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0012833",
+                "display": "Unilateral"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0012832",
+                "display": "Bilateral"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

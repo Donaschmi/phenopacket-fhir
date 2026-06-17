@@ -1,0 +1,357 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "id": "phenopacket-marfan-001-response",
+  "questionnaire": "https://phenopackets.org/fhir/Questionnaire/phenopacket-v2|2.0",
+  "status": "completed",
+  "authored": "2026-06-16T08:47:33Z",
+  "item": [
+    {
+      "linkId": "phenopacket.id",
+      "text": "Phenopacket identifier",
+      "answer": [
+        {
+          "valueString": "phenopacket-marfan-001"
+        }
+      ]
+    },
+    {
+      "linkId": "phenopacket.meta_created_by",
+      "text": "Created by",
+      "answer": [
+        {
+          "valueString": "dr.smith@clinic.org"
+        }
+      ]
+    },
+    {
+      "linkId": "phenopacket.meta_created",
+      "text": "Created (ISO 8601)",
+      "answer": [
+        {
+          "valueDateTime": "2024-05-01T10:00:00Z"
+        }
+      ]
+    },
+    {
+      "linkId": "subject",
+      "text": "Subject (Individual)",
+      "item": [
+        {
+          "linkId": "subject.id",
+          "text": "Patient / subject identifier",
+          "answer": [
+            {
+              "valueString": "patient-001"
+            }
+          ]
+        },
+        {
+          "linkId": "subject.date_of_birth",
+          "text": "Date of birth",
+          "answer": [
+            {
+              "valueDate": "1985-07-14"
+            }
+          ]
+        },
+        {
+          "linkId": "subject.sex",
+          "text": "Biological sex",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/sex",
+                "code": "MALE",
+                "display": "MALE"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "subject.karyotypic_sex",
+          "text": "Karyotypic sex",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/karyotypic-sex",
+                "code": "XY",
+                "display": "XY"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "subject.taxonomy",
+          "text": "Taxonomy (NCBITaxon)",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/ncbitaxon.owl",
+                "code": "NCBITaxon:9606",
+                "display": "Homo sapiens"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "subject.vital_status",
+          "text": "Vital status",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "https://phenopackets.org/schema/vital-status",
+                "code": "ALIVE",
+                "display": "ALIVE"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "phenotypic_features",
+      "text": "Phenotypic Features",
+      "item": [
+        {
+          "linkId": "phenotypic_feature.type",
+          "text": "HPO term (type)",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0002751",
+                "display": "Kyphoscoliosis"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "phenotypic_feature.excluded",
+          "text": "Excluded (negated observation)",
+          "answer": [
+            {
+              "valueBoolean": false
+            }
+          ]
+        },
+        {
+          "linkId": "phenotypic_feature.onset_ontology",
+          "text": "Onset (ontology class)",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0011463",
+                "display": "Childhood onset"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "phenotypic_feature.severity",
+          "text": "Severity (HPO)",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0012826",
+                "display": "Moderate"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "phenotypic_features",
+      "text": "Phenotypic Features",
+      "item": [
+        {
+          "linkId": "phenotypic_feature.type",
+          "text": "HPO term (type)",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0001519",
+                "display": "Disproportionate tall stature"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "phenotypic_feature.excluded",
+          "text": "Excluded (negated observation)",
+          "answer": [
+            {
+              "valueBoolean": false
+            }
+          ]
+        },
+        {
+          "linkId": "phenotypic_feature.onset_age",
+          "text": "Onset (ISO 8601 age, e.g. P2Y3M)",
+          "answer": [
+            {
+              "valueString": "P8Y"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "phenotypic_features",
+      "text": "Phenotypic Features",
+      "item": [
+        {
+          "linkId": "phenotypic_feature.type",
+          "text": "HPO term (type)",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0000545",
+                "display": "Myopia"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "phenotypic_feature.excluded",
+          "text": "Excluded (negated observation)",
+          "answer": [
+            {
+              "valueBoolean": false
+            }
+          ]
+        },
+        {
+          "linkId": "phenotypic_feature.severity",
+          "text": "Severity (HPO)",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0012825",
+                "display": "Mild"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "phenotypic_feature.modifiers",
+          "text": "Clinical modifiers (HPO, multiple allowed)",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0012834",
+                "display": "Right"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "phenotypic_features",
+      "text": "Phenotypic Features",
+      "item": [
+        {
+          "linkId": "phenotypic_feature.type",
+          "text": "HPO term (type)",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0001382",
+                "display": "Joint hypermobility"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "phenotypic_feature.excluded",
+          "text": "Excluded (negated observation)",
+          "answer": [
+            {
+              "valueBoolean": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "phenotypic_features",
+      "text": "Phenotypic Features",
+      "item": [
+        {
+          "linkId": "phenotypic_feature.type",
+          "text": "HPO term (type)",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0000822",
+                "display": "Hypertension"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "phenotypic_feature.excluded",
+          "text": "Excluded (negated observation)",
+          "answer": [
+            {
+              "valueBoolean": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "diseases",
+      "text": "Diseases",
+      "item": [
+        {
+          "linkId": "disease.term",
+          "text": "Disease term (MONDO / OMIM / ICD)",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/mondo.owl",
+                "code": "MONDO:0007947",
+                "display": "Marfan syndrome"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "disease.excluded",
+          "text": "Excluded (rule-out diagnosis)",
+          "answer": [
+            {
+              "valueBoolean": false
+            }
+          ]
+        },
+        {
+          "linkId": "disease.onset_ontology",
+          "text": "Onset (ontology class)",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://purl.obolibrary.org/obo/hp.owl",
+                "code": "HP:0011463",
+                "display": "Childhood onset"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "reference": "Patient/patient-001"
+  }
+}
